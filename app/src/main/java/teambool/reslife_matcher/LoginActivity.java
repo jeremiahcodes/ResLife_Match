@@ -3,6 +3,7 @@ package teambool.reslife_matcher;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -39,6 +40,8 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
+
+    private Button mStartButton;    //variable for onClickListener
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -67,6 +70,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
+        mStartButton = (Button) findViewById(R.id.prefButton);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startStory();   //pass name data to new function
+                //show what value name has
+                ////Toast.makeText(MainActivity.this, name, Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
@@ -345,6 +359,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private void startStory() {
+        Intent intent = new Intent(this, PreferenceActivity.class);
+        startActivity(intent);
     }
 }
 
