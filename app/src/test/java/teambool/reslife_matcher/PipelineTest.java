@@ -29,27 +29,25 @@ public class PipelineTest {
     @Before
     public void setUp() throws Exception {
         p = new Pipeline();
+        String data = p.authenticate("bumar1@unh.newhaven.edu", "umarov");
+        assertNotNull(data);
     }
-
     @Test
     public void connection_test() throws Exception {
         data = p.getData();
         assertNotNull(data);
-
     }
-
     @Test
     public void matches_test() throws Exception {
         data = p.getMatchesForUser(1001);
         assertNotNull(data);
     }
-
     @Test
     public void categories_test() throws Exception {
         data = p.getCategories();
+        System.out.println(data.names().toString());
         assertNotNull(data);
     }
-
     @Test
     public void subcategories_test() throws Exception {
         data = p.getSubcategories(1);

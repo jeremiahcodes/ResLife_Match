@@ -4,13 +4,11 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.security.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -21,9 +19,27 @@ import java.nio.charset.StandardCharsets;
 
 public class Pipeline {
     private static final String HOST = "http://wbj-test-bekhzod0725.c9users.io/?f=";
+    private static String session_code = null;
+    private static int      uid = -1;
     public Pipeline() {}
 
-    private JSONObject _connection(String _url) {
+    public static String sha1(String stringToHash) {
+        try {
+            final MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            byte[] result = digest.digest(stringToHash.getBytes("UTF-8"));
+            StringBuilder sb = new StringBuilder();
+            for (byte b: result) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    private static JSONObject _connection(String _url) {
         StringBuilder _out  = new StringBuilder();
         BufferedReader _in = null;
         JSONObject _result = null;
@@ -33,7 +49,7 @@ public class Pipeline {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             _in = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
         } catch (Exception e) {
-            Log.e("ResLife_Match", e.getMessage());
+            //Log.e("ResLife_Match", e.getMessage());
             e.printStackTrace();
             return null;
         }
@@ -58,28 +74,41 @@ public class Pipeline {
             return null;
         }
     }
+    public static String authenticate(String username, String password) {
+        String _url = HOST + "login&username="+username + "&secret=" + sha1(password);
+        JSONObject result = _connection(_url);
+        try {
+            session_code = result.get("sessionkey").toString();
+            uid = result.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        return session_code;
 
-    public JSONObject getData() {
-        String _url = HOST + "match"; // URL to call
+    }
+    public static JSONObject getData() {
+        String _url = HOST + "match&attr="+uid+"&session="+session_code; // URL to call
         return _connection(_url);
     }
-    public JSONObject getDataFrom(String uRL) {
+    public static JSONObject getDataFrom(String uRL) {
         String _url     = uRL; // URL to call
         return _connection(_url);
     }
 
-    public JSONObject getMatchesForUser(int uid) {
-        String _url = HOST + "match&attr=" + uid;
+    public static JSONObject getMatchesForUser(int uid) {
+        String _url = HOST + "match&attr=" + uid + "&session="+session_code;
         return getDataFrom(_url);
     }
 
-    public JSONObject getCategories() {
-        String _url = HOST + "category";
+    public static JSONObject getCategories() {
+        String _url = HOST + "category&session="+session_code;
         return getDataFrom(_url);
     }
 
-    public JSONObject getSubcategories(int catid) {
-        String _url = HOST + "category&catid=" + catid;
+    public static JSONObject getSubcategories(int catid) {
+        String _url = HOST + "category&catid=" + catid +"&session="+session_code;
         return getDataFrom(_url);
     }
 }
