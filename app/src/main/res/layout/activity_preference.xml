@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_preference"
     android:layout_width="match_parent"
@@ -15,265 +16,135 @@
         android:layout_height="match_parent">
 
 
-
             <GridLayout
+                android:id="@+id/grid_layout"
                 android:layout_width="match_parent"
-                android:layout_height="157dp">
-                <TextView
-                android:text="Horiscope"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:id="@+id/textView"
-                android:textSize="24sp"
-                android:layout_row="0"
-                android:layout_column="0"/>
-
-                <CheckBox
-                    android:text="CheckBox"
-                    android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <Button
+                    android:text="Matching"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox"
+                    android:id="@+id/matchButton"
                     android:layout_row="0"
-                    android:layout_column="1"/>
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView2"
-                    android:textSize="24sp"
-                    android:layout_row="1"
-                    android:layout_column="0" />
+                    android:layout_column="0"
+                    android:layout_columnSpan="2"
+                    />
 
                 <CheckBox
-                    android:text="CheckBox"
+                    android:text="Horoscope"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/checkBox6"
+                    android:id="@+id/chk_horoscope"
+                    android:textSize="24sp"
                     android:layout_row="1"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView3"
-                    android:textSize="24sp"
-                    android:layout_row="2"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText3"
-                    android:layout_row="2"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView4"
-                    android:layout_row="3"
                     android:layout_column="0"
-                    android:textColor="@android:color/holo_blue_bright" />
+                    android:layout_columnSpan="2"/>
 
-                <EditText
-                    android:layout_width="match_parent"
+                <CheckBox
+                    android:text="Gender Neutral"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText4"
+                    android:id="@+id/chk_gender"
+                    android:textSize="24sp"
+                    android:layout_row="2"
+                    android:layout_column="0"
+                    android:layout_columnSpan="2"/>
+
+                <TextView
+                    android:text="Bed Time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:id="@+id/tvBedTime"
                     android:layout_row="3"
-                    android:layout_column="1" />
+                    android:layout_column="0"/>
+                <Spinner
+                    android:id="@+id/spBedTime"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_row="3"
+                    android:layout_column="1"
+                    />
 
                 <TextView
-                    android:text="Gender Neutral"
+                    android:text="Movie Genre"
                     android:layout_width="wrap_content"
-                    android:layout_height="57dp"
+                    android:layout_height="wrap_content"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView5"
-                    android:textSize="24sp"
+                    android:id="@+id/tvMovie"
                     android:layout_row="4"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
+                    android:layout_column="0"/>
+                <Spinner
+                    android:id="@+id/spMovie"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText5"
                     android:layout_row="4"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
                 <TextView
-                    android:text="Gender Neutral"
+                    android:text="Music Genre"
                     android:layout_width="wrap_content"
-                    android:layout_height="57dp"
+                    android:layout_height="wrap_content"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView6"
-                    android:textSize="24sp"
+                    android:id="@+id/tvMusic"
                     android:layout_row="5"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
+                    android:layout_column="0"/>
+                <Spinner
+                    android:id="@+id/spMusic"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText6"
                     android:layout_row="5"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
                 <TextView
-                    android:text="Gender Neutral"
+                    android:text="Sports"
                     android:layout_width="wrap_content"
-                    android:layout_height="57dp"
+                    android:layout_height="wrap_content"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView7"
-                    android:textSize="24sp"
+                    android:id="@+id/tvSports"
                     android:layout_row="6"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
+                    android:layout_column="0"/>
+                <Spinner
+                    android:id="@+id/spSports"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText7"
                     android:layout_row="6"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
                 <TextView
-                    android:text="Gender Neutral"
+                    android:text="TV Shows"
                     android:layout_width="wrap_content"
-                    android:layout_height="57dp"
+                    android:layout_height="wrap_content"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView8"
-                    android:textSize="24sp"
+                    android:id="@+id/tvShows"
                     android:layout_row="7"
-                    android:layout_column="0" />
-
+                    android:layout_column="0"/>
                 <EditText
-                    android:layout_width="match_parent"
+                    android:id="@+id/spShows"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText8"
                     android:layout_row="7"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
                 <TextView
-                    android:text="Gender Neutral"
+                    android:text="Wake up Time"
                     android:layout_width="wrap_content"
-                    android:layout_height="57dp"
+                    android:layout_height="wrap_content"
                     android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView9"
-                    android:textSize="24sp"
+                    android:id="@+id/tvWakeup"
                     android:layout_row="8"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
+                    android:layout_column="0"/>
+                <Spinner
+                    android:id="@+id/spWakeup"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText9"
                     android:layout_row="8"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView10"
-                    android:textSize="24sp"
-                    android:layout_row="9"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText10"
-                    android:layout_row="9"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView11"
-                    android:textSize="24sp"
-                    android:layout_row="10"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText11"
-                    android:layout_row="10"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView12"
-                    android:textSize="24sp"
-                    android:layout_row="11"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText12"
-                    android:layout_row="11"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:text="Gender Neutral"
-                    android:layout_width="wrap_content"
-                    android:layout_height="57dp"
-                    android:paddingTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/textView13"
-                    android:textSize="24sp"
-                    android:layout_row="12"
-                    android:layout_column="0" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:ems="10"
-                    android:id="@+id/editText13"
-                    android:layout_row="12"
-                    android:layout_column="1" />
+                    android:layout_column="1"
+                    />
 
 
 
@@ -282,9 +153,5 @@
 
 
     </ScrollView>
-    <Button
-        android:text="Matching"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/matchButton"/>
+
 </RelativeLayout>
