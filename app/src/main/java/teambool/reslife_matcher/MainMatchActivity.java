@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -23,14 +24,14 @@ import java.util.ArrayList;
 public class MainMatchActivity extends AppCompatActivity {
     private RetrieveMatches mMatcher;
     private JSONObject matches;
-    private LinearLayout lLayout;
+    private RelativeLayout lLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_match);
 
-        lLayout = (LinearLayout) findViewById(R.id.activity_main_match);
+        lLayout = (RelativeLayout) findViewById(R.id.linear_layout_bottom_sheet);
 
         mMatcher = new RetrieveMatches();
         mMatcher.execute((Void) null);
