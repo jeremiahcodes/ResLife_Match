@@ -1,18 +1,13 @@
 package teambool.reslife_matcher;
 
 import android.content.BroadcastReceiver;
-<<<<<<< HEAD
-=======
 import android.support.design.widget.BottomSheetBehavior;
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
-<<<<<<< HEAD
-=======
+
 import android.support.design.widget.CoordinatorLayout;
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
@@ -20,27 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-<<<<<<< HEAD
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-
-public class MainMatchActivity extends AppCompatActivity {
-    private RetrieveMatches mMatcher;
-    private JSONObject matches;
-    private LinearLayout lLayout;
-=======
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
@@ -58,28 +40,26 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
     private TextView bottomSheetHeading;
 
     // Button variables
-    private Button expandBottomSheetButton;
+    /*private Button expandBottomSheetButton;
     private Button collapseBottomSheetButton;
     private Button hideBottomSheetButton;
-    private Button showBottomSheetDialogButton;
+    private Button showBottomSheetDialogButton;*/
 
     private TextView mMatchView;
     ///-------------------------- j test
 
 
     private RetrieveMatches mMatcher;
-    private JSONObject matches;
+    private JSONArray matches;
+    private JSONArray matchProfiles;
     private CoordinatorLayout lLayout;
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_match);
 
-<<<<<<< HEAD
-        lLayout = (LinearLayout) findViewById(R.id.activity_main_match);
-=======
+
         lLayout = (CoordinatorLayout) findViewById(R.id.activity_mainmatch);
 
         //follow
@@ -87,7 +67,7 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
        // mMatchView = (TextView) findViewById(R.id.factTextView);
         initViews();
         initListeners();
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
+
 
         mMatcher = new RetrieveMatches();
         mMatcher.execute((Void) null);
@@ -129,7 +109,20 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
     public class RetrieveMatches extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
-            matches = LoginActivity.p.getData();
+            JSONObject match = LoginActivity.p.getData();
+            matches = new JSONArray();
+            matchProfiles = new JSONArray();
+            try {
+                matches = match.getJSONArray(match.names().getString(0));
+
+                for (int i = 0; i< matches.length(); ++i) {
+                    String name = matches.getJSONObject(i).keys().next().toString();
+                    matchProfiles.put(LoginActivity.p.getUserInfo(Integer.parseInt(name)));
+                }
+            }  catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             return true;
         }
 
@@ -154,15 +147,30 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
 
     void populateView() {
         try {
-            System.out.println(matches.toString());
-            for (int i = 0; i < matches.names().length(); ++i) {
-                JSONObject match = matches.getJSONObject(matches.names().getString(i));
-                TextView mTextView = new TextView(this);
-                mTextView.setText(match.get("firstname").toString() + " " + match.get("lastname").toString());
-                lLayout.addView(mTextView);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+            //System.out.println(matches.toString());
+            //for (int i = 0; i < matches.names().length(); ++i) {
+                //JSONArray match = matches.getJSONArray(matches.names().getString(i));
+                for (int j=0; j < 1; ++j) {
+                    TextView txtName = (TextView) findViewById(R.id.txtName); //new TextView(this);
+                    TextView txtRate = (TextView) findViewById(R.id.txtMatchRate);
+                    TextView txtAge  = (TextView) findViewById(R.id.txtAge);
+                    TextView txtMajor = (TextView) findViewById(R.id.txtMajor);
+                    try {
+                        //JSONObject uinfo = LoginActivity.p.getUserInfo(Integer.parseInt(name));
+                        String name = matches.getJSONObject(j).keys().next().toString();
+                        txtName.setText(matchProfiles.getJSONObject(j).getString("name"));
+                        txtRate.setText(matches.getJSONObject(j).getString(name));
+                        txtAge.setText(matchProfiles.getJSONObject(j).getInt("age"));
+                        txtMajor.setText(matchProfiles.getJSONObject(j).getString("major"));
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    //lLayout.addView(mTextView);
+                }
+            //}
+        //} catch (JSONException e) {
+        //    e.printStackTrace();
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -176,14 +184,12 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
      */
     private void initViews() {
 
-
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetLayout));
         bottomSheetHeading = (TextView) findViewById(R.id.bottomSheetHeading);
-        expandBottomSheetButton = (Button) findViewById(R.id.expand_bottom_sheet_button);
+        /*expandBottomSheetButton = (Button) findViewById(R.id.expand_bottom_sheet_button);
         collapseBottomSheetButton = (Button) findViewById(R.id.collapse_bottom_sheet_button);
         hideBottomSheetButton = (Button) findViewById(R.id.hide_bottom_sheet_button);
-        showBottomSheetDialogButton = (Button) findViewById(R.id.show_bottom_sheet_dialog_button);
-
+        showBottomSheetDialogButton = (Button) findViewById(R.id.show_bottom_sheet_dialog_button);*/
 
     }
 
@@ -193,10 +199,10 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
      */
     private void initListeners() {
         // register the listener for button click
-        expandBottomSheetButton.setOnClickListener(this);
+        /*expandBottomSheetButton.setOnClickListener(this);
         collapseBottomSheetButton.setOnClickListener(this);
         hideBottomSheetButton.setOnClickListener(this);
-        showBottomSheetDialogButton.setOnClickListener(this);
+        showBottomSheetDialogButton.setOnClickListener(this);*/
 
         // Capturing the callbacks for bottom sheet
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
@@ -204,9 +210,9 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
             public void onStateChanged(View bottomSheet, int newState) {
 
                 if (newState == BottomSheetBehavior.STATE_EXPANDED) {
-                    bottomSheetHeading.setText(getString(R.string.text_collapse_me));
+                    bottomSheetHeading.setText(getString(R.string.text_profile_close));
                 } else {
-                    bottomSheetHeading.setText(getString(R.string.text_expand_me));
+                    bottomSheetHeading.setText(getString(R.string.text_profile));
                 }
 
                 // Check Logs to see how bottom sheets behaves
@@ -246,7 +252,7 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
      */
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        /*switch (v.getId()) {
             case R.id.collapse_bottom_sheet_button:
                 // Collapsing the bottom sheet
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -263,7 +269,7 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
 
                 break;
 
-        }
+        }*/
     }
 
 

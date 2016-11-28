@@ -1,5 +1,7 @@
 package teambool.reslife_matcher;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.Before;
@@ -32,6 +34,27 @@ public class PipelineTest {
         String data = p.authenticate("bumar1@unh.newhaven.edu", "umarov");
         assertNotNull(data);
     }
+
+
+    @Test
+    public void uinfo_test() throws Exception{
+        JSONArray matches = new JSONArray();
+        JSONArray matchProfiles = new JSONArray();
+        JSONObject match = LoginActivity.p.getData();
+        try {
+            matches = match.getJSONArray(match.names().getString(0));
+
+            for (int i = 0; i< matches.length(); ++i) {
+                String name = matches.getJSONObject(i).keys().next().toString();
+                matchProfiles.put(LoginActivity.p.getUserInfo(Integer.parseInt(name)));
+            }
+        }  catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(matches.toString());
+        System.out.println(matchProfiles.toString());
+    }
+    /*
     @Test
     public void connection_test() throws Exception {
         data = p.getData();
@@ -52,5 +75,5 @@ public class PipelineTest {
     public void subcategories_test() throws Exception {
         data = p.getSubcategories(1);
         assertNotNull(data);
-    }
+    }*/
 }

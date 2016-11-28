@@ -7,8 +7,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-<<<<<<< HEAD
-=======
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.io.InputStreamReader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
 import java.io.*;
 import java.security.*;
 import java.net.HttpURLConnection;
@@ -50,10 +47,8 @@ public class Pipeline {
         }
         return null;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
+
     private static JSONObject _connection(String _url) {
         StringBuilder _out  = new StringBuilder();
         BufferedReader _in = null;
@@ -101,32 +96,12 @@ public class Pipeline {
             e.printStackTrace();
         }
         return session_code;
-
-<<<<<<< HEAD
-=======
-    public static String authenticate(String username, String password) {
-        String _url = HOST + "login&username="+username + "&secret=" + sha1(password);
-        JSONObject result = _connection(_url);
-        try {
-            session_code = result.get("sessionkey").toString();
-            uid = result.getInt("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-        return session_code;
-
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
     }
     public static JSONObject getData() {
         String _url = HOST + "match&attr="+uid+"&session="+session_code; // URL to call
         return _connection(_url);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 263237d82970b7a91902561644e5e83d0dd1c8ed
     public static JSONObject getDataFrom(String uRL) {
         String _url     = uRL; // URL to call
         return _connection(_url);
@@ -145,5 +120,9 @@ public class Pipeline {
     public static JSONObject getSubcategories(int catid) {
         String _url = HOST + "category&catid=" + catid +"&session="+session_code;
         return getDataFrom(_url);
+    }
+    public static JSONObject getUserInfo(int iid) {
+        String _url = HOST + "uinfo&foruid=" + iid + "&session="+session_code;
+        return _connection(_url);
     }
 }
