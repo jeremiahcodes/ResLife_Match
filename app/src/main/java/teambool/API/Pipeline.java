@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -47,6 +48,7 @@ public class Pipeline {
         return null;
     }
 
+
     private static JSONObject _connection(String _url) {
         StringBuilder _out  = new StringBuilder();
         BufferedReader _in = null;
@@ -82,7 +84,6 @@ public class Pipeline {
             return null;
         }
     }
-
     public static String authenticate(String username, String password) {
         String _url = HOST + "login&username="+username + "&secret=" + sha1(password);
         JSONObject result = _connection(_url);
@@ -95,7 +96,6 @@ public class Pipeline {
             e.printStackTrace();
         }
         return session_code;
-
     }
     public static JSONObject getData() {
         String _url = HOST + "match&attr="+uid+"&session="+session_code; // URL to call
@@ -120,5 +120,9 @@ public class Pipeline {
     public static JSONObject getSubcategories(int catid) {
         String _url = HOST + "category&catid=" + catid +"&session="+session_code;
         return getDataFrom(_url);
+    }
+    public static JSONObject getUserInfo(int iid) {
+        String _url = HOST + "uinfo&foruid=" + iid + "&session="+session_code;
+        return _connection(_url);
     }
 }

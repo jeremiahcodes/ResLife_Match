@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <GridLayout
             android:id="@+id/grid_layout"
             android:layout_width="match_parent"
@@ -146,12 +145,11 @@
                 android:layout_column="1"
                 />
 
-
-
         </GridLayout>
 
 
 
     </ScrollView>
+
 
 </RelativeLayout>

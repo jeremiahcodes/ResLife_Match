@@ -15,6 +15,59 @@
         android:id="@+id/bottomSheetHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
+        android:text="@string/text_profile"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/cardview_light_background" />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottomSheetHeading">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Age:"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="0"
+            android:layout_row = "0"/>
+        <TextView
+            android:id="@+id/txtAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="99"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="1"
+            android:layout_row = "0"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Major:"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="0"
+            android:layout_row = "1"/>
+        <TextView
+            android:id="@+id/txtMajor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="N/A"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="1"
+            android:layout_row = "1"/>
+    </GridLayout>
+=======
         android:text="@string/text_expand_me"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
@@ -28,4 +81,5 @@
         android:text="@string/text_welcome_message"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
+>>>>>>> refs/remotes/origin/master
 </RelativeLayout>
