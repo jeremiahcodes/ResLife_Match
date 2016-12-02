@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 <<<<<<< HEAD
+<<<<<<< HEAD
         android:text="@string/text_profile"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
@@ -69,12 +70,15 @@
     </GridLayout>
 =======
         android:text="@string/text_expand_me"
+=======
+        android:text="@string/text_profile"
+>>>>>>> origin/master
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
-
-    <TextView
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:layout_below="@id/bottomSheetHeading"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
@@ -83,3 +87,51 @@
         android:textColor="@color/cardview_light_background" />
 >>>>>>> refs/remotes/origin/master
 </RelativeLayout>
+=======
+        android:layout_below="@id/bottomSheetHeading">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Age:"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="0"
+            android:layout_row = "0"/>
+        <TextView
+            android:id="@+id/txtAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="99"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="1"
+            android:layout_row = "0"/>
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="Major:"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="0"
+            android:layout_row = "1"/>
+        <TextView
+            android:id="@+id/txtMajor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="N/A"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="1"
+            android:layout_row = "1"/>
+    </GridLayout>
+</RelativeLayout>
+>>>>>>> origin/master
