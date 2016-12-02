@@ -15,6 +15,7 @@
         android:id="@+id/bottomSheetHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:text="@string/text_profile"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
@@ -66,4 +67,19 @@
             android:layout_column="1"
             android:layout_row = "1"/>
     </GridLayout>
+=======
+        android:text="@string/text_expand_me"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/cardview_light_background" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bottomSheetHeading"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/text_welcome_message"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textColor="@color/cardview_light_background" />
+>>>>>>> refs/remotes/origin/master
 </RelativeLayout>
