@@ -11,6 +11,22 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="teambool.reslife_matcher.PreferenceActivity">
 
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:text="Matching"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/matchButton"
+            android:background="#0a3770"
+            android:textColor="#fff" />
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,15 +35,7 @@
             android:id="@+id/grid_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <Button
-                android:text="Matching"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/matchButton"
-                android:layout_row="0"
-                android:layout_column="0"
-                android:layout_columnSpan="2"
-                />
+
 
             <CheckBox
                 android:text="Horoscope"
