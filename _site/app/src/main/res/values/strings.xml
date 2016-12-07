@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ResLIfe_Matcher</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+
+    <string name ="string_bottom_sheet_behavior">Bottom</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">Incorrect email or password was entered</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."
+    </string>
+
+
+
+    <string name="app_name2">Bottom Sheets</string>
+    <string name="text_welcome_message">Welcome to Android Tutorials Hub</string>
+    <string name="text_dialog_bottom_sheet">Dialog Bottom Sheet</string>
+    <string name="text_profile">Profile</string>
+    <string name="text_profile_close">Close Profile</string>
+    <string name="text_expand_bottom_sheet">Expand Bottom Sheet</string>
+    <string name="text_collapse_bottom_sheet">Collapse Bottom Sheet</string>
+    <string name="text_hide_bottom_sheet">Hide Bottom Sheet</string>
+    <string name="text_show_bottom_sheet_dialog">Show Bottom Sheet Dialog</string>
+</resources>

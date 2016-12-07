@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="teambool.reslife_matcher.MainMatchActivity"
+    tools:showIn="@layout/activity_main_match">
+    <!--<Button
+        android:id="@+id/expand_bottom_sheet_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_expand_bottom_sheet" />
+    <Button
+        android:id="@+id/collapse_bottom_sheet_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/expand_bottom_sheet_button"
+        android:text="@string/text_collapse_bottom_sheet" />
+    <Button
+        android:id="@+id/hide_bottom_sheet_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/collapse_bottom_sheet_button"
+        android:text="@string/text_hide_bottom_sheet" />
+    <Button
+        android:id="@+id/show_bottom_sheet_dialog_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/hide_bottom_sheet_button"
+        android:text="@string/text_show_bottom_sheet_dialog" />
+    -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="0"
+            android:layout_row="0"
+            android:layout_columnSpan="2"/>
+        <TextView
+            android:text="Name:"
+            android:layout_row="1"
+            android:layout_column="0"
+            />
+        <TextView
+            android:text="Mr. X"
+            android:id="@+id/txtName"
+            android:layout_row="1"
+            android:layout_column="1"
+            />
+        <TextView
+            android:text="Percent Match:"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+        <TextView
+            android:text="100%"
+            android:id="@+id/txtMatchRate"
+            android:layout_row="2"
+            android:layout_column="1"
+            />
+        <TextView
+            android:text="Horoscope:"
+            android:layout_row="3"
+            android:layout_column="0"
+            />
+        <TextView
+            android:text="Aries"
+            android:id="@+id/txtHoroscope"
+            android:layout_row="3"
+            android:layout_column="1"
+            />
+        <TextView
+            android:text=""
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:layout_row="4"
+            android:layout_column="0"
+            />
+        <TextView
+            android:text="Swipe up for more info"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:layout_columnSpan="2"
+            />
+
+
+    </GridLayout>
+</RelativeLayout>
