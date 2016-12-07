@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,37 +35,38 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
 
     ///-------------------------- j test
     // BottomSheetBehavior variable
+    private View    bottomSheet;
     private BottomSheetBehavior bottomSheetBehavior;
 
     // TextView variable
     private TextView bottomSheetHeading;
 
-    // Button variables
-    /*private Button expandBottomSheetButton;
-    private Button collapseBottomSheetButton;
-    private Button hideBottomSheetButton;
-    private Button showBottomSheetDialogButton;*/
 
     private TextView mMatchView;
-    ///-------------------------- j test
-
+    private TextView txtName;
+    private TextView txtRate;
+    private TextView txtAge;
+    private TextView txtMajor;
 
     private RetrieveMatches mMatcher;
     private JSONArray matches;
     private JSONArray matchProfiles;
     private CoordinatorLayout lLayout;
 
+    private int curItem = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_match);
 
-
         lLayout = (CoordinatorLayout) findViewById(R.id.activity_mainmatch);
-
+        txtName = (TextView) findViewById(R.id.txtName); //new TextView(this);
+        txtRate = (TextView) findViewById(R.id.txtMatchRate);
+        txtAge  = (TextView) findViewById(R.id.txtAge);
+        txtMajor = (TextView) findViewById(R.id.txtMajor);
         //follow
         //save matches from json file into array
-       // mMatchView = (TextView) findViewById(R.id.factTextView);
         initViews();
         initListeners();
 
@@ -134,8 +136,7 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
                 //finish();
                 populateView();
             } else {
-                //mPasswordView.setError(getString(R.string.error_incorrect_password));
-                //mPasswordView.requestFocus();
+                // Basically error handling for doInBackground
             }
         }
 
@@ -146,38 +147,23 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
     }
 
     void populateView() {
-        try {
-            //System.out.println(matches.toString());
-            //for (int i = 0; i < matches.names().length(); ++i) {
-                //JSONArray match = matches.getJSONArray(matches.names().getString(i));
-                for (int j=0; j < 1; ++j) {
-                    TextView txtName = (TextView) findViewById(R.id.txtName); //new TextView(this);
-                    TextView txtRate = (TextView) findViewById(R.id.txtMatchRate);
-                    TextView txtAge  = (TextView) findViewById(R.id.txtAge);
-                    TextView txtMajor = (TextView) findViewById(R.id.txtMajor);
-                    try {
-                        //JSONObject uinfo = LoginActivity.p.getUserInfo(Integer.parseInt(name));
-                        String name = matches.getJSONObject(j).keys().next().toString();
-                        txtName.setText(matchProfiles.getJSONObject(j).getString("name"));
-                        txtRate.setText(matches.getJSONObject(j).getString(name));
-                        txtAge.setText(matchProfiles.getJSONObject(j).getInt("age"));
-                        txtMajor.setText(matchProfiles.getJSONObject(j).getString("major"));
-                    } catch (Exception e){
-                        e.printStackTrace();
-                    }
 
-                    //lLayout.addView(mTextView);
-                }
-            //}
-        //} catch (JSONException e) {
-        //    e.printStackTrace();
-        } catch (NullPointerException e) {
+        try {
+            // Apparently in Android when working with setting the fields, there is a loading time issue
+            // meaning any fields that need to be updated with dynamic information need to be first stored
+            // in memory as variable for faster processing before the View gets rendered.
+            String name = matches.getJSONObject(curItem).keys().next().toString();
+            String age = matchProfiles.getJSONObject(curItem).getString("age");
+            String major = matchProfiles.getJSONObject(curItem).getString("major");
+
+            txtName.setText(matchProfiles.getJSONObject(curItem).getString("name"));
+            txtRate.setText(matches.getJSONObject(curItem).getString(name));
+            txtAge.setText(age);
+            txtMajor.setText(major);
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
-
-
-    ///-------------------------- j test
 
     /**
      * method to initialize the views
@@ -185,25 +171,19 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
     private void initViews() {
 
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheetLayout));
-        bottomSheetHeading = (TextView) findViewById(R.id.bottomSheetHeading);
-        /*expandBottomSheetButton = (Button) findViewById(R.id.expand_bottom_sheet_button);
-        collapseBottomSheetButton = (Button) findViewById(R.id.collapse_bottom_sheet_button);
-        hideBottomSheetButton = (Button) findViewById(R.id.hide_bottom_sheet_button);
-        showBottomSheetDialogButton = (Button) findViewById(R.id.show_bottom_sheet_dialog_button);*/
 
+        //bottomSheet = (View) findViewById(R.id.bottomSheetLayout);
+        //bottomSheet.getLayoutParams().height = 1200;
+        bottomSheetHeading = (TextView) findViewById(R.id.bottomSheetHeading);
     }
 
 
     /**
      * method to initialize the listeners
      */
+    private int prevState;
+    private Boolean hide = true;
     private void initListeners() {
-        // register the listener for button click
-        /*expandBottomSheetButton.setOnClickListener(this);
-        collapseBottomSheetButton.setOnClickListener(this);
-        hideBottomSheetButton.setOnClickListener(this);
-        showBottomSheetDialogButton.setOnClickListener(this);*/
-
         // Capturing the callbacks for bottom sheet
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override
@@ -215,15 +195,22 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
                     bottomSheetHeading.setText(getString(R.string.text_profile));
                 }
 
+                if (newState != BottomSheetBehavior.STATE_DRAGGING) prevState = newState;
+
                 // Check Logs to see how bottom sheets behaves
                 switch (newState) {
                     case BottomSheetBehavior.STATE_COLLAPSED:
+                        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
                         Log.e("Bottom Sheet Behaviour", "STATE_COLLAPSED");
                         break;
                     case BottomSheetBehavior.STATE_DRAGGING:
                         Log.e("Bottom Sheet Behaviour", "STATE_DRAGGING");
                         break;
                     case BottomSheetBehavior.STATE_EXPANDED:
+                        if (prevState == newState) {
+                            hide = !hide;
+                            if (hide) bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                        }
                         Log.e("Bottom Sheet Behaviour", "STATE_EXPANDED");
                         break;
                     case BottomSheetBehavior.STATE_HIDDEN:
@@ -238,7 +225,6 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onSlide(View bottomSheet, float slideOffset) {
-
             }
         });
 
@@ -252,30 +238,38 @@ public class MainMatchActivity extends AppCompatActivity implements View.OnClick
      */
     @Override
     public void onClick(View v) {
-        /*switch (v.getId()) {
-            case R.id.collapse_bottom_sheet_button:
-                // Collapsing the bottom sheet
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                break;
-            case R.id.expand_bottom_sheet_button:
-                // Expanding the bottom sheet
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                break;
-            case R.id.hide_bottom_sheet_button:
-                // Hiding the bottom sheet
-                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-                break;
-            case R.id.show_bottom_sheet_dialog_button:
-
-                break;
-
-        }*/
     }
 
 
+    // The below part is for handling the Left and Right swipe
+    private float x1,x2;
+    static final int MIN_DISTANCE=150;
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch(event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x1=event.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                // Can have an animation for letting the user know
+                // that something is happening when we are swiping
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                float deltaX = x2-x1;
+                if (Math.abs(deltaX) > MIN_DISTANCE) {
+                    if (x2 > x1 && curItem > 0) {
+                        // swipe left
+                        curItem--;
+                    } else if (x2 < x1 && curItem < matches.length()-1) {
+                        curItem++;
+                        // swipe right
+                    }
+                }
+                populateView();
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
 
-
-
-
-    ///-------------------------- j test
 }
