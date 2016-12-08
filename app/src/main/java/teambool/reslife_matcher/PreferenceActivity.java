@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ import teambool.API.Pipeline;
 public class PreferenceActivity extends AppCompatActivity {
 
     private Button mStartButton;    //variable for onClickListener
+    private ImageButton pictureButton;
     private Spinner mSpinner;
     private JSONObject categories;
     private ArrayList<JSONObject> subCategories;
@@ -46,6 +48,14 @@ public class PreferenceActivity extends AppCompatActivity {
         fields.execute((Void) null);
 
         setContentView(R.layout.activity_preference);
+
+        pictureButton = (ImageButton) findViewById(R.id.pictureButton);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startUpload();
+            }
+        });
 
         mStartButton = (Button) findViewById(R.id.matchButton);
         mStartButton.setOnClickListener(new View.OnClickListener() {
@@ -180,6 +190,10 @@ public class PreferenceActivity extends AppCompatActivity {
 
     private void startMatch() {
         Intent intent = new Intent(this, MainMatchActivity.class);
+        startActivity(intent);
+    }
+    private void startUpload() {
+        Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
     }
 }

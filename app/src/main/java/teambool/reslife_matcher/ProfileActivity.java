@@ -29,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonChoose;
     private Button buttonUpload;
 
+
     private ImageView imageView;
 
     private Bitmap bitmap;
@@ -106,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 HashMap<String,String> data = new HashMap<>();
                 data.put(UPLOAD_KEY, uploadImage);
+                data.put("UID", Integer.toString(LoginActivity.p.getUid()));
 
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
 

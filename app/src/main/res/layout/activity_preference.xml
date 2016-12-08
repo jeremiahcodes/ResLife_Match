@@ -22,7 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
+            <ImageButton
+                android:id="@+id/pictureButton"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="130dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+            />
 
             <CheckBox
                 android:text="Horoscope"

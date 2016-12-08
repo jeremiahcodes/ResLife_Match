@@ -48,6 +48,9 @@ public class Pipeline {
         return null;
     }
 
+    public static int getUid() {
+        return uid;
+    }
 
     private static JSONObject _connection(String _url) {
         StringBuilder _out  = new StringBuilder();
