@@ -28,7 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".PreferenceActivity" />
-        <activity android:name=".MainMatchActivity"></activity>
+        <activity android:name=".MainMatchActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>
