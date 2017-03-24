@@ -75,7 +75,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public String getStringImage(Bitmap bmp){
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        Bitmap bp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+
+        bp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] imageBytes = baos.toByteArray();
         String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
         return encodedImage;
@@ -107,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
                 HashMap<String,String> data = new HashMap<>();
                 data.put(UPLOAD_KEY, uploadImage);
-                data.put("UID", Integer.toString(LoginActivity.p.getUid()));
+                data.put("UID", Integer.toString(LoginActivity.p.getUid()) );
 
                 String result = rh.sendPostRequest(UPLOAD_URL,data);
 

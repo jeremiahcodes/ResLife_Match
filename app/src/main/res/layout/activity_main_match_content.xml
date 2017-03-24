@@ -51,7 +51,7 @@
             android:layout_column="0"
             />
         <TextView
-            android:text="Mr. X"
+            android:text=""
             android:id="@+id/txtName"
             android:layout_row="1"
             android:layout_column="1"
@@ -62,12 +62,12 @@
             android:layout_column="0"
             />
         <TextView
-            android:text="100%"
+            android:text="%"
             android:id="@+id/txtMatchRate"
             android:layout_row="2"
             android:layout_column="1"
             />
-        <TextView
+        <!--<TextView
             android:text="Horoscope:"
             android:layout_row="3"
             android:layout_column="0"
@@ -77,7 +77,7 @@
             android:id="@+id/txtHoroscope"
             android:layout_row="3"
             android:layout_column="1"
-            />
+            />-->
         <TextView
             android:text=""
             android:layout_width="120dp"

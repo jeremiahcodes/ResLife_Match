@@ -4,9 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -14,10 +18,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,6 +32,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import teambool.API.Pipeline;
@@ -38,6 +49,8 @@ public class PreferenceActivity extends AppCompatActivity {
     private JSONObject categories;
     private ArrayList<JSONObject> subCategories;
     private RetrieveFields fields;
+    private Bitmap bmp = null;
+    private static byte[] pic;
 
 
     @Override
@@ -56,6 +69,13 @@ public class PreferenceActivity extends AppCompatActivity {
                 startUpload();
             }
         });
+        pictureButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        pictureButton.setAdjustViewBounds(true);
+
+        GetImageTask imgTask = new GetImageTask();
+        imgTask.execute(pictureButton);
+
+
 
         mStartButton = (Button) findViewById(R.id.matchButton);
         mStartButton.setOnClickListener(new View.OnClickListener() {
@@ -101,10 +121,57 @@ public class PreferenceActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    private static byte[] imgBin;
+    public class GetImageTask extends AsyncTask<ImageView, Void, Drawable> {
+        ImageView imageView;
+//        private byte[] data;
+        @Override
+        protected Drawable doInBackground(ImageView...imageViews) {
+            this.imageView = pictureButton;
+//            final BitmapFactory.Options opts = new BitmapFactory.Options();
+//            opts.inJustDecodeBounds = true;
 
+            try{
+//                JSONObject pic = LoginActivity.p.getPicture();
+//                String img = pic.getString("photo");
+//                System.out.println(img);
+//                imgBin = img.getBytes(StandardCharsets.UTF_8);
+//                System.out.println(imgBin);
+//                imgBin =  Base64.decode(imgBin, Base64.DEFAULT);
+//                System.out.println(imgBin);
+
+                //InputStream is = new ByteArrayInputStream(pic.getString("photo"));
+                //BufferedInputStream bfs = new BufferedInputStream(is);
+                //BitmapFactory.decodeStream(is, null, opts);
+                //opts.inJustDecodeBounds = false;
+
+//                Bitmap bmp = BitmapFactory.decode
+//                Bitmap bmp = BitmapFactory.decodeByteArray(imgBin, 0, imgBin.length, opts);
+//                System.out.println(imgBin);
+                Drawable bmp = LoginActivity.p.getImage();
+                return bmp;
+                //return BitmapFactory.decodeStream(is,null, opts);
+                //bfs.reset();
+            } catch (Throwable t) {
+                t.printStackTrace();
+            }
+            return null;
+
+
+            //pictureButton.setImageBitmap(BitmapFactory.decodeByteArray(LoginActivity.p.imgdata, 0, LoginActivity.p.imgdata.length));
+
+        }
+        @Override
+        protected void onPostExecute(Drawable result) {
+            imageView.setImageDrawable(result);
+        }
+
+    }
     public class RetrieveFields extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void ... params) {
+
+
             categories =  LoginActivity.p.getCategories();
             subCategories = new ArrayList<>(categories.names().length());
             System.out.println(subCategories.size());
@@ -152,6 +219,21 @@ public class PreferenceActivity extends AppCompatActivity {
     }
     private void populateView() {
         try {
+
+            JSONObject profile = LoginActivity.p.getProfile(LoginActivity.p.getUid());
+
+            String p_str = profile.names().getString(0);
+            JSONArray parr = profile.getJSONArray(p_str);
+            System.out.println(parr.toString());
+            int sportID;
+            int musicID;
+            int movieID;
+            int bedtimeID;
+            int wakeupID;
+            //for (int i = 0; i < parr.length(); ++i)
+            //    int cId = parr.getJSONObject(i);
+                //matchProfileInterests.put(parr.get(i));
+
             for (int i = 0; i < subCategories.size(); ++i) {
 
                 JSONObject subCat = subCategories.get(i);
@@ -167,13 +249,24 @@ public class PreferenceActivity extends AppCompatActivity {
                 //else if (i == 1) mSpinner = (Spinner) findViewById(R.id.spShows);
 
                 ArrayList<String> items = new ArrayList<>();
+
                 if (subCat != null) {
+                    myOnItemSelectedListener listener = new myOnItemSelectedListener();
+                    listener.spinnerID = i;
+                    listener.ids = new ArrayList<>();
+                    listener.categories = new ArrayList<>();
+
+                    mSpinner.setOnItemSelectedListener(listener);
 
                     for (int j = 0; j < subCat.names().length(); ++j) {
                         String sc = subCat.names().get(j).toString();
                         JSONObject subC = subCat.getJSONObject(sc);
                         sc = subC.getString("name");
                         items.add(sc);
+                        int id = subC.getInt("id");
+                        int catid = subC.getInt("catid");
+                        listener.ids.add(id);
+                        listener.categories.add(catid);
                     }
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                             this,
@@ -186,6 +279,8 @@ public class PreferenceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
     }
 
     private void startMatch() {
@@ -195,5 +290,62 @@ public class PreferenceActivity extends AppCompatActivity {
     private void startUpload() {
         Intent intent = new Intent(this, ProfileActivity.class);
         startActivity(intent);
+    }
+
+    private class myOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+        public int spinnerID;
+        public ArrayList<Integer> ids;
+        public ArrayList<Integer> categories;
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
+            Log.e("RESLIFE", Integer.toString(spinnerID));
+            Log.e("RESLIFE", Integer.toString(i));
+
+            int catid;
+            if (spinnerID == 0) catid = 1;
+            else if (spinnerID == 2) catid = 2;
+            else if (spinnerID == 5) catid = 3;
+            else if (spinnerID == 7) catid = 4;
+            else if (spinnerID == 4) catid = 5;
+            else catid = 0;
+
+            StorePref prefs = new StorePref();
+            prefs.execute(catid, ids.get(i));
+
+            /*if (i == 0) mSpinner = (Spinner) findViewById(R.id.spSports);
+            else if (i == 2) mSpinner = (Spinner) findViewById(R.id.spMusic);
+            else if (i == 5) mSpinner = (Spinner) findViewById(R.id.spMovie);
+            else if (i == 7) mSpinner = (Spinner) findViewById(R.id.spBedTime);
+            else if (i == 4) mSpinner = (Spinner) findViewById(R.id.spWakeup);*/
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    }
+
+    public class StorePref extends AsyncTask<Integer, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Integer ... params) {
+            int catid = params[0];
+            int i = params[1];
+
+            LoginActivity.p.setPref(catid, i, 0.7f);
+            return true;
+        }
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+
+            } else {
+
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            fields = null;
+        }
     }
 }

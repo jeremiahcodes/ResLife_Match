@@ -1,6 +1,10 @@
 package teambool.API;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -29,6 +33,7 @@ public class Pipeline {
     private static final String HOST = "http://wbj-test-bekhzod0725.c9users.io/?f=";
     private static String session_code = null;
     private static int      uid = -1;
+    public static byte[] imgdata;
     public Pipeline() {}
 
     public static String sha1(String stringToHash) {
@@ -93,11 +98,15 @@ public class Pipeline {
         try {
             session_code = result.get("sessionkey").toString();
             uid = result.getInt("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+            //getPicture();
+        } catch (Throwable t) {
+            t.printStackTrace();
         }
+//        catch (JSONException e) {
+//            e.printStackTrace();
+//        } catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
         return session_code;
     }
     public static JSONObject getData() {
@@ -127,5 +136,46 @@ public class Pipeline {
     public static JSONObject getUserInfo(int iid) {
         String _url = HOST + "uinfo&foruid=" + iid + "&session="+session_code;
         return _connection(_url);
+    }
+    public static JSONObject  getProfile(int iid) {
+        String _url = HOST + "profile&uid="+iid+"&session="+session_code;
+        return _connection(_url);
+    }
+    public static JSONObject getPicture() throws Throwable {
+        String _url = HOST + "img&uid=" + uid + "&session="+session_code;
+        JSONObject img = _connection(_url);
+        //Bitmap bmp =  BitmapFactory.decodeByteArray(data, 0, data.length);
+        //imgdata = Base64.decode(img.getString("photo"), Base64.DEFAULT);
+        //System.out.print("Size of data: ");
+        //System.out.println(imgdata.length);
+        return img;
+    }
+    public static Drawable getImageUid(int iid) {
+        String _url = HOST + "img&uid=" + iid + "&session="+session_code;
+        try {
+//            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(_url).getContent());
+            InputStream is = (InputStream) new URL(_url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public static Drawable getImage() {
+        String _url = HOST + "img&uid=" + uid + "&session="+session_code;
+        try {
+//            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(_url).getContent());
+            InputStream is = (InputStream) new URL(_url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static void setPref(int catid, int subcatid, float rate) {
+        String _url = HOST + "setPref&catid=" + catid + "&subcatid=" + subcatid +
+                "&rate=" + rate + "&uid=" + uid + "&session=" + session_code ;
+        JSONObject resp = _connection(_url);
     }
 }
