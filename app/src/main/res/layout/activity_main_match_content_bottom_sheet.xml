@@ -19,10 +19,22 @@
         android:text="@string/text_profile"
         android:textAppearance="@android:style/TextAppearance.Large"
         android:textColor="@color/cardview_light_background" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:id="@+id/profilePicLayout">
+        <ImageView
+            android:id="@+id/profilePic"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="40dp"/>
+    </LinearLayout>
+
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bottomSheetHeading">
+        android:layout_below="@id/profilePicLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,18 +45,18 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/cardview_light_background"
             android:layout_column="0"
-            android:layout_row = "0"/>
+            android:layout_row = "1"/>
         <TextView
             android:id="@+id/txtAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:text="99"
+            android:text="-"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/cardview_light_background"
             android:layout_column="1"
-            android:layout_row = "0"/>
+            android:layout_row = "1"/>
         <TextView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -54,10 +66,10 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/cardview_light_background"
             android:layout_column="0"
-            android:layout_row = "1"/>
+            android:layout_row = "2"/>
         <TextView
             android:id="@+id/txtMajor"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
@@ -65,6 +77,29 @@
             android:textAppearance="@android:style/TextAppearance.Large"
             android:textColor="@color/cardview_light_background"
             android:layout_column="1"
-            android:layout_row = "1"/>
+            android:layout_row = "2"/>
+        <TextView
+            android:id="@+id/txtInterestCats"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text=""
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="0"
+            android:layout_row = "3"/>
+        <TextView
+            android:id="@+id/txtInterests"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text=""
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/cardview_light_background"
+            android:layout_column="1"
+            android:layout_row = "3"/>
+
     </GridLayout>
 </RelativeLayout>
